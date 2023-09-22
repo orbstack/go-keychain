@@ -209,6 +209,9 @@ var syncTypeRef = map[Synchronizable]C.CFTypeRef{
 	SynchronizableNo:  C.CFTypeRef(C.kCFBooleanFalse),
 }
 
+var DataProtectionKey = attrKey(C.CFTypeRef(C.kSecUseDataProtectionKeychain))
+var dataProtectionYes = C.CFTypeRef(C.kCFBooleanTrue)
+
 // Accessible is the items accessibility
 type Accessible int
 
@@ -360,6 +363,10 @@ func (k *Item) SetSynchronizable(sync Synchronizable) {
 	} else {
 		delete(k.attr, SynchronizableKey)
 	}
+}
+
+func (key *Item) SetDataProtection() {
+	key.attr[DataProtectionKey] = dataProtectionYes
 }
 
 // SetAccessible sets the accessible attribute
